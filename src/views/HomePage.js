@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 const BASE_URL = 'https://api.themoviedb.org';
@@ -12,11 +13,23 @@ class HomePage extends Component {
     const response = await axios.get(
       `${BASE_URL}/3/movie/popular?api_key=${KEY_URL}&language=en-US&page=1`,
     );
-    console.log(response.data.result);
+    this.setState({ movies: response.data.results });
   }
   render() {
-    return <h1>Это домашняя страница</h1>;
+    return (
+      <>
+        <h1>Trending today</h1>
+        <ul>
+          {this.state.movies.map(movie => (
+            <li key={movie.id}>
+              <Link to={`${this.props.match.url}/${movie.id}`}>
+                {movie.title}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </>
+    );
   }
 }
-
 export default HomePage;
