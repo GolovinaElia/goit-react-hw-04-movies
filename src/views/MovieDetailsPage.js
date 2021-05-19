@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Route } from 'react-router-dom';
+import Cast from '../components/Cast/Cast';
 
 const BASE_URL = 'https://api.themoviedb.org';
 const KEY_URL = 'be8c1fddab60d3ca36450ce7d48f58dd';
@@ -17,7 +18,7 @@ class MovieDetailsPage extends Component {
   async componentDidMount() {
     const { movieId } = this.props.match.params;
     const response = await axios.get(
-      `${BASE_URL}/3/movie/${movieId}?api_key=${KEY_URL}&language=en-US`,
+      `${BASE_URL}/3/movie/${movieId}/credits?api_key=${KEY_URL}&language=en-US`,
     );
     this.setState({ ...response.data });
   }
@@ -40,6 +41,11 @@ class MovieDetailsPage extends Component {
             <NavLink to="/movies/:movieId/reviews">Reviews</NavLink>
           </p>
         </div>
+
+        <Route
+          path={`${this.props.match.url}/${id}/cast`}
+          render={props => <Cast {...props} />}
+        />
       </>
     );
   }
