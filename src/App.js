@@ -9,7 +9,7 @@ const App = () => {
   return (
     <>
       <ul className={style.link}>
-        <li>
+        <li className={style.itemLink}>
           <NavLink
             exact
             to="/"
@@ -19,7 +19,7 @@ const App = () => {
             Home
           </NavLink>
         </li>
-        <li>
+        <li className={style.itemLink}>
           <NavLink
             to="/movies"
             className="NavLink"

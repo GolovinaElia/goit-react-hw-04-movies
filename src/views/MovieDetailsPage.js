@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { NavLink } from 'react-router-dom';
-// import Cast from '../components/Cast/Cast';
+import { NavLink, Route } from 'react-router-dom';
+import Cast from '../components/Cast/Cast';
 
 const BASE_URL = 'https://api.themoviedb.org';
 const KEY_URL = 'be8c1fddab60d3ca36450ce7d48f58dd';
 class MovieDetailsPage extends Component {
   state = {
-    // movies: [],
     id: null,
     poster_path: null,
     original_title: null,
@@ -29,7 +28,7 @@ class MovieDetailsPage extends Component {
     return (
       <>
         <div>
-          <img src={poster_path} alt="" />
+          <img src={poster_path} alt={original_title} />
           <h2>{original_title}</h2>
           <p>{release_date}</p>
           <p>Overview {overview}</p>
@@ -39,16 +38,14 @@ class MovieDetailsPage extends Component {
             <NavLink to={`${this.props.match.url}/${id}/cast`}>Cast</NavLink>
           </p>
           <p>
-            <NavLink to={`${this.props.match.url}/${id}/reviews`}>
-              Reviews
-            </NavLink>
+            <NavLink to={`${this.props.match.url}/reviews`}>Reviews</NavLink>
           </p>
         </div>
 
-        {/* <Route
+        <Route
           path={`${this.props.match.url}/${id}/cast`}
           render={props => <Cast {...props} />}
-        /> */}
+        />
       </>
     );
   }
