@@ -8,13 +8,13 @@ import style from './App.module.css';
 const App = () => {
   return (
     <>
-      <ul>
+      <ul className={style.link}>
         <li>
           <NavLink
             exact
             to="/"
-            className={style.NavLink}
-            activeClassName={style.NavLinkActive}
+            className="NavLink"
+            activeClassName="NavLinkActive"
           >
             Home
           </NavLink>
@@ -22,21 +22,12 @@ const App = () => {
         <li>
           <NavLink
             to="/movies"
-            className={style.NavLink}
-            activeClassName={style.NavLinkActive}
+            className="NavLink"
+            activeClassName="NavLinkActive"
           >
             Movies
           </NavLink>
         </li>
-        {/* <li>
-          <NavLink
-            to="/movies/:movieId"
-            className={style.NavLink}
-            activeClassName={style.NavLinkActive}
-          >
-            MovieDetailsPage
-          </NavLink>
-        </li> */}
       </ul>
 
       <Switch>
