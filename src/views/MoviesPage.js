@@ -8,12 +8,7 @@ class MoviesPage extends Component {
   state = {
     query: '',
   };
-  // async componentDidMount() {
-  //   const response = await axios.get(
-  //     `${BASE_URL}/3/movie/popular?api_key=${KEY_URL}&language=en-US&page=1`,
-  //   );
-  //   this.setState({ movies: response.data.results });
-  // }
+
   async componentDidMount() {
     const response = await axios.get(
       `${BASE_URL}/3/search/movie?api_key=${KEY_URL}`,

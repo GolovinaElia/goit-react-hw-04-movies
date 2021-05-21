@@ -22,9 +22,7 @@ class HomePage extends Component {
         <ul>
           {this.state.movies.map(movie => (
             <li key={movie.id}>
-              <Link to={`${this.props.match.url}/${movie.id}`}>
-                {movie.title}
-              </Link>
+              <Link to={`/movies/${movie.id}`}>{movie.title}</Link>
             </li>
           ))}
         </ul>
