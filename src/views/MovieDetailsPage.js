@@ -7,6 +7,7 @@ const BASE_URL = 'https://api.themoviedb.org';
 const KEY_URL = 'be8c1fddab60d3ca36450ce7d48f58dd';
 class MovieDetailsPage extends Component {
   state = {
+    movies: [],
     id: null,
     poster_path: null,
     original_title: null,
@@ -38,7 +39,9 @@ class MovieDetailsPage extends Component {
             <NavLink to={`${this.props.match.url}/${id}/cast`}>Cast</NavLink>
           </p>
           <p>
-            <NavLink to={`${this.props.match.url}/reviews`}>Reviews</NavLink>
+            <NavLink to={`${this.props.match.url}/${id}/reviews`}>
+              Reviews
+            </NavLink>
           </p>
         </div>
 
