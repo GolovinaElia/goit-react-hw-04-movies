@@ -14,15 +14,9 @@ class MoviesPage extends Component {
     event.preventDefault();
     return axios
       .get(
-        `${BASE_URL}/3/search/movie?api_key=${KEY_URL}&page=1&query=666&include_adult=false&language=en`,
+        `${BASE_URL}/3/search/movie?api_key=${KEY_URL}&page=1&query=${this.state.query}&include_adult=false&language=en`,
       )
-      .then(response => console.log(response.data.results));
-    // this.props.onSubmit(this.state.query);
-    // this.setState({ query: '' });
-    // this.setState({
-    //   query: '',
-    //   movies: [],
-    // });
+      .then(response => this.setState({ movies: response.data.results }));
   };
 
   handleChange = event => {
@@ -49,7 +43,7 @@ class MoviesPage extends Component {
         <ul>
           {this.state.movies.map(movie => (
             <li key={movie.id}>
-              <Link to="/movies">{movie.title}</Link>
+              <Link to={`/movies/${movie.id}`}>{movie.title}</Link>
             </li>
           ))}
         </ul>

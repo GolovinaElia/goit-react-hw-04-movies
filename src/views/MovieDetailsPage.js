@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { NavLink, Route } from 'react-router-dom';
 import Cast from '../components/Cast/Cast';
+import Reviews from '../components/Reviews/Reviews';
 import defaultImage from '../components/Images/default.png';
 
 const BASE_URL = 'https://api.themoviedb.org';
@@ -20,9 +21,10 @@ class MovieDetailsPage extends Component {
   async componentDidMount() {
     const { movieId } = this.props.match.params;
     const response = await axios.get(
-      `${BASE_URL}/3/movie/${movieId}?api_key=${KEY_URL}&language=en-US`,
+      `${BASE_URL}/3/movie/${movieId}/reviews?api_key=${KEY_URL}&language=en-US&page=1`,
     );
-    this.setState({ ...response.data });
+    console.log(response);
+    // this.setState({ ...response.data });
   }
   render() {
     const { original_title, poster_path, release_date, overview, id } =
@@ -50,6 +52,10 @@ class MovieDetailsPage extends Component {
         <Route
           path={`${this.props.match.url}/${id}/cast`}
           render={props => <Cast {...props} />}
+        />
+        <Route
+          path={`${this.props.match.url}/${id}/reviews`}
+          render={props => <Reviews {...props} />}
         />
       </>
     );
