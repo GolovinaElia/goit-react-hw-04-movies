@@ -1,25 +1,28 @@
 import React, { Component } from 'react';
-// import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 const BASE_URL = 'https://api.themoviedb.org';
 const KEY_URL = 'be8c1fddab60d3ca36450ce7d48f58dd';
 class MoviesPage extends Component {
   state = {
+    movies: [],
     query: '',
   };
 
-  async componentDidMount() {
-    const response = await axios.get(
-      `${BASE_URL}/3/search/movie?api_key=${KEY_URL}`,
-    );
-    console.log(response);
-  }
-
   handleSubmit = event => {
     event.preventDefault();
-    this.props.onSubmit(this.state.query);
-    this.setState({ query: '' });
+    return axios
+      .get(
+        `${BASE_URL}/3/search/movie?api_key=${KEY_URL}&page=1&query=666&include_adult=false&language=en`,
+      )
+      .then(response => console.log(response.data.results));
+    // this.props.onSubmit(this.state.query);
+    // this.setState({ query: '' });
+    // this.setState({
+    //   query: '',
+    //   movies: [],
+    // });
   };
 
   handleChange = event => {
@@ -38,18 +41,18 @@ class MoviesPage extends Component {
               value={this.state.query}
               onChange={this.handleChange}
             />
-            <button type="submit">Search</button>
+            <button type="submit" onClick={this.fetchMovie}>
+              Search
+            </button>
           </form>
         </div>
-        {/* <ul>
+        <ul>
           {this.state.movies.map(movie => (
             <li key={movie.id}>
-              <Link to={`${this.props.match.url}/${movie.id}`}>
-                {movie.title}
-              </Link>
+              <Link to="/movies">{movie.title}</Link>
             </li>
           ))}
-        </ul> */}
+        </ul>
       </>
     );
   }
