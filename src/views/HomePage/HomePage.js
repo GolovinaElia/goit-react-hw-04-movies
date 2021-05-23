@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import style from './HomePage.module.css';
 
 const BASE_URL = 'https://api.themoviedb.org';
 const KEY_URL = 'be8c1fddab60d3ca36450ce7d48f58dd';
@@ -18,11 +19,13 @@ class HomePage extends Component {
   render() {
     return (
       <>
-        <h1>Trending today</h1>
-        <ul>
+        <h1 className={style.title}>Trending today</h1>
+        <ul className={style.list}>
           {this.state.movies.map(movie => (
-            <li key={movie.id}>
-              <Link to={`/movies/${movie.id}`}>{movie.title}</Link>
+            <li className={style.item} key={movie.id}>
+              <Link to={`/movies/${movie.id}`} className={style.homePage}>
+                {movie.title}
+              </Link>
             </li>
           ))}
         </ul>

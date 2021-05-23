@@ -1,8 +1,8 @@
 import { Route, NavLink, Switch } from 'react-router-dom';
-import HomePage from './views/HomePage';
-import MoviesPage from './views/MoviesPage';
-import MovieDetailsPage from './views/MovieDetailsPage';
-import NotFoundView from './views/NotFoundView';
+import HomePage from './views/HomePage/HomePage';
+import MoviesPage from './views/MoviesPage/MoviesPage';
+import MovieDetailsPage from './views/MovieDetailsPage/MovieDetailsPage';
+import NotFoundView from './views/NotFoundView/NotFoundView';
 import style from './App.module.css';
 
 const App = () => {
