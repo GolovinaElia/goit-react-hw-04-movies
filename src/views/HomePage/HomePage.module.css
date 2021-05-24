@@ -2,14 +2,17 @@
   margin-left: 20px;
 }
 
+.item {
+  list-style: disc;
+}
 .homePage {
   margin-left: 20px;
-  display: block;
-  width: 10px;
-  height: 10px;
-  background-color: #2a2a2a;
+  /* display: block; */
+  /* width: 10px; */
+  /* height: 10px; */
+  /* background-color: #2a2a2a;
   border: 1px solid #2a2a2a;
   border-radius: 50%;
   margin-right: 10px;
-  margin-right: 10px;
+  margin-right: 10px; */
 }

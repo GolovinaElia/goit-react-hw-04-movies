@@ -4,9 +4,11 @@ import { NavLink, Route } from 'react-router-dom';
 import Cast from '../../components/Cast/Cast';
 import Reviews from '../../components/Reviews/Reviews';
 import defaultImage from '../../components/Images/default.png';
+import style from './MovieDetailsPage.module.css';
 
 const BASE_URL = 'https://api.themoviedb.org';
 const KEY_URL = 'be8c1fddab60d3ca36450ce7d48f58dd';
+
 class MovieDetailsPage extends Component {
   state = {
     movies: [],
@@ -26,34 +28,45 @@ class MovieDetailsPage extends Component {
     // console.log(response);
     this.setState({ ...response.data });
   }
+
   render() {
     const { original_title, poster_path, release_date, overview, id, genres } =
       this.state;
     const results = 'https://image.tmdb.org/t/p/w500' + poster_path;
     return (
       <>
-        <div>
+        <div className={style.moviePage}>
           <img src={results} alt={original_title} />
-          <h2>{original_title}</h2>
-          <p>{release_date}</p>
-          <p>Overview {overview}</p>
-          {
-            <ul>
-              {genres.map(genre => (
-                <li key={genre.id}>{genre.name}</li>
-              ))}
-            </ul>
-          }
+          <div className={style.movie}>
+            <h2 className={style.title}>{original_title}</h2>
+            <p className={style.movieDate}>({release_date})</p>
+            <p className={style.movieOverview}>
+              <span className={style.span}>Overview</span> {overview}
+            </p>
+            {
+              <ul className={style.list}>
+                <span className={style.span}>Genres</span>
+                {genres.map(genre => (
+                  <li key={genre.id} className={style.item}>
+                    {genre.name}
+                  </li>
+                ))}
+              </ul>
+            }
+          </div>
         </div>
         <div>
-          <p>
-            <NavLink to={`${this.props.match.url}/${id}/cast`}>Cast</NavLink>
-          </p>
-          <p>
-            <NavLink to={`${this.props.match.url}/${id}/reviews`}>
-              Reviews
-            </NavLink>
-          </p>
+          <ul>
+            <p>Additional information</p>
+            <li>
+              <NavLink to={`${this.props.match.url}/${id}/cast`}>Cast</NavLink>
+            </li>
+            <li>
+              <NavLink to={`${this.props.match.url}/${id}/reviews`}>
+                Reviews
+              </NavLink>
+            </li>
+          </ul>
         </div>
 
         <Route
