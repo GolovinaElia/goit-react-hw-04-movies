@@ -1,7 +1,11 @@
 // import PropTypes from 'prop-types';
 import style from './Button.module.css';
 
-const Button = () => <button> Go back</button>;
+const Button = () => (
+  <button type="button" className={style.button}>
+    Go back
+  </button>
+);
 // FriendListItem.defaultProps = {
 //     avatar: defaultImage,
 // }

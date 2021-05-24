@@ -19,6 +19,7 @@
 .span {
   display: flex;
   font-weight: bold;
+  margin-bottom: 10px;
 }
 
 .item {

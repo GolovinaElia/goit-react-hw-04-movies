@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import style from './MoviesPage.module.css';
 
 const BASE_URL = 'https://api.themoviedb.org';
 const KEY_URL = 'be8c1fddab60d3ca36450ce7d48f58dd';
@@ -25,7 +26,7 @@ class MoviesPage extends Component {
   render() {
     return (
       <>
-        <div>
+        <div className={style.page}>
           <form onSubmit={this.handleSubmit}>
             <input
               type="text"
@@ -35,14 +36,18 @@ class MoviesPage extends Component {
               value={this.state.query}
               onChange={this.handleChange}
             />
-            <button type="submit" onClick={this.fetchMovie}>
+            <button
+              className={style.button}
+              type="submit"
+              onClick={this.fetchMovie}
+            >
               Search
             </button>
           </form>
         </div>
-        <ul>
+        <ul className={style.list}>
           {this.state.movies.map(movie => (
-            <li key={movie.id}>
+            <li key={movie.id} className={style.item}>
               <Link to={`/movies/${movie.id}`}>{movie.title}</Link>
             </li>
           ))}
