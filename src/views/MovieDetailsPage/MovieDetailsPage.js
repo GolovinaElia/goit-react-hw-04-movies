@@ -5,6 +5,7 @@ import Cast from '../../components/Cast/Cast';
 import Reviews from '../../components/Reviews/Reviews';
 import defaultImage from '../../components/Images/default.png';
 import style from './MovieDetailsPage.module.css';
+import routes from '../../routes';
 
 const BASE_URL = 'https://api.themoviedb.org';
 const KEY_URL = 'be8c1fddab60d3ca36450ce7d48f58dd';
@@ -25,9 +26,13 @@ class MovieDetailsPage extends Component {
     const response = await axios.get(
       `${BASE_URL}/3/movie/${movieId}?api_key=${KEY_URL}&language=en-US&page=1`,
     );
-    // console.log(response);
     this.setState({ ...response.data });
   }
+
+  handleGoBack = () => {
+    const { location, history } = this.props;
+    history.push(location?.state?.from || routes.home);
+  };
 
   render() {
     const { original_title, poster_path, release_date, overview, id, genres } =
@@ -35,6 +40,13 @@ class MovieDetailsPage extends Component {
     const results = 'https://image.tmdb.org/t/p/w500' + poster_path;
     return (
       <>
+        <button
+          type="button"
+          className={style.button}
+          onClick={this.handleGoBack}
+        >
+          Go back
+        </button>
         <div className={style.moviePage}>
           <img src={results} alt={original_title} />
           <div className={style.movie}>
@@ -70,9 +82,10 @@ class MovieDetailsPage extends Component {
         </div>
 
         <Route
-          path={`/movie/${id}/reviews`}
+          path={`${this.props.match.url}/${id}/reviews`}
           render={props => <Cast {...props} />}
         />
+
         <Route
           path={`${this.props.match.url}/${id}/reviews`}
           render={props => <Reviews {...props} />}
