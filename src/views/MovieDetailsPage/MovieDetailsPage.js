@@ -1,14 +1,11 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 import { NavLink, Route } from 'react-router-dom';
 import Cast from '../../components/Cast/Cast';
 import Reviews from '../../components/Reviews/Reviews';
 import defaultImage from '../../components/Images/default.png';
 import style from './MovieDetailsPage.module.css';
 import routes from '../../routes';
-
-const BASE_URL = 'https://api.themoviedb.org';
-const KEY_URL = 'be8c1fddab60d3ca36450ce7d48f58dd';
+import fetchMovies from '../../services/api';
 
 class MovieDetailsPage extends Component {
   state = {
@@ -17,16 +14,17 @@ class MovieDetailsPage extends Component {
     poster_path: null,
     original_title: null,
     release_date: null,
+    popularity: null,
     overview: null,
     genres: [],
   };
 
   async componentDidMount() {
     const { movieId } = this.props.match.params;
-    const response = await axios.get(
-      `${BASE_URL}/3/movie/${movieId}?api_key=${KEY_URL}&language=en-US&page=1`,
-    );
-    this.setState({ ...response.data });
+    fetchMovies
+      .getPageMovie(movieId)
+      .then(response => this.setState({ ...response.data }))
+      .catch(error => console.log(error));
   }
 
   handleGoBack = () => {
@@ -42,9 +40,17 @@ class MovieDetailsPage extends Component {
   // };
 
   render() {
-    const { original_title, poster_path, release_date, overview, id, genres } =
-      this.state;
+    const {
+      original_title,
+      poster_path,
+      release_date,
+      popularity,
+      overview,
+      genres,
+    } = this.state;
+    const { match } = this.props;
     const results = 'https://image.tmdb.org/t/p/w500' + poster_path;
+    const moviePopularity = Math.round(popularity);
     return (
       <>
         <button
@@ -63,7 +69,8 @@ class MovieDetailsPage extends Component {
             <h2 className={style.title}>
               {original_title}({release_date})
             </h2>
-            <p className={style.movieOverview}>
+            <p className={style.movieDetails}>User score: {moviePopularity}%</p>
+            <p className={style.movieDetails}>
               <span className={style.span}>Overview</span> {overview}
             </p>
             {
@@ -82,23 +89,18 @@ class MovieDetailsPage extends Component {
           <ul>
             <p>Additional information</p>
             <li>
-              <NavLink to={`${this.props.match.url}/${id}/cast`}>Cast</NavLink>
+              <NavLink to={`${match.url}/cast`}>Cast</NavLink>
             </li>
             <li>
-              <NavLink to={`${this.props.match.url}/${id}/reviews`}>
-                Reviews
-              </NavLink>
+              <NavLink to={`${match.url}/reviews`}>Reviews</NavLink>
             </li>
           </ul>
         </div>
 
-        <Route
-          path={`${this.props.match.url}/${id}/reviews`}
-          render={props => <Cast {...props} />}
-        />
+        <Route path={`${match.path}/cast`} component={Cast} />
 
         <Route
-          path={`${this.props.match.url}/${id}/reviews`}
+          path={`${match.path}/reviews`}
           render={props => <Reviews {...props} />}
         />
       </>

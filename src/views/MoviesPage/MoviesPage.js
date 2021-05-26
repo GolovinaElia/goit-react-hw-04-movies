@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
 // import { Link } from 'react-router-dom';
-import axios from 'axios';
 import style from './MoviesPage.module.css';
 import MovieList from '../../components/MovieList/MovieList';
+import fetchMovies from '../../services/api';
 
-const BASE_URL = 'https://api.themoviedb.org';
-const KEY_URL = 'be8c1fddab60d3ca36450ce7d48f58dd';
 class MoviesPage extends Component {
   state = {
     movies: [],
@@ -14,11 +12,11 @@ class MoviesPage extends Component {
 
   handleSubmit = event => {
     event.preventDefault();
-    return axios
-      .get(
-        `${BASE_URL}/3/search/movie?api_key=${KEY_URL}&page=1&query=${this.state.query}&include_adult=false&language=en`,
-      )
-      .then(response => this.setState({ movies: response.data.results }));
+    fetchMovies
+      .getSearchMovie(this.state.query)
+      .then(response => response.data.results)
+      .then(results => this.setState({ movies: results }))
+      .catch(error => console.log(error));
   };
 
   handleChange = event => {

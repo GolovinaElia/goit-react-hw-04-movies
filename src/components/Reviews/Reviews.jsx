@@ -1,7 +1,6 @@
 import { Component } from 'react';
-import axios from 'axios';
-const BASE_URL = 'https://api.themoviedb.org';
-const KEY_URL = 'be8c1fddab60d3ca36450ce7d48f58dd';
+import fetchMovies from '../../services/api';
+import style from './Reviews.module.css';
 
 class Reviews extends Component {
   state = {
@@ -10,15 +9,25 @@ class Reviews extends Component {
 
   async componentDidMount() {
     const { movieId } = this.props.match.params;
-    const response = await axios.get(
-      `${BASE_URL}/3/movie/${movieId}/reviews?api_key=${KEY_URL}&language=en-US&page=1`,
-    );
-    console.log(response.data);
-    // this.setState({ ...response.data });
+    fetchMovies
+      .getReviews(movieId)
+      .then(response => this.setState({ reviews: response.data.results }))
+      .catch(error => console.log(error));
+    // this.setState({ reviews: response.data.results });
   }
 
   render() {
-    return <h2>Reviews</h2>;
+    const { reviews } = this.state;
+    return (
+      <ul className={style.list}>
+        {reviews.map(reviews => (
+          <li key={reviews.id} className={style.item}>
+            Author: {reviews.author}
+            <p>{reviews.content}</p>
+          </li>
+        ))}
+      </ul>
+    );
   }
 }
 export default Reviews;
