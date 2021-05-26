@@ -34,6 +34,13 @@ class MovieDetailsPage extends Component {
     history.push(location?.state?.from || routes.home);
   };
 
+  // getReleaseDate = result => {
+  //   if (result.release_date !== 'not defined') {
+  //     result.release_date = result.release_date.slice(0, 4);
+  //   }
+  //   return result;
+  // };
+
   render() {
     const { original_title, poster_path, release_date, overview, id, genres } =
       this.state;
@@ -45,13 +52,17 @@ class MovieDetailsPage extends Component {
           className={style.button}
           onClick={this.handleGoBack}
         >
+          <span role="img" aria-label="arrow to the left">
+            ⬅
+          </span>
           Go back
         </button>
         <div className={style.moviePage}>
           <img src={results} alt={original_title} />
           <div className={style.movie}>
-            <h2 className={style.title}>{original_title}</h2>
-            <p className={style.movieDate}>({release_date})</p>
+            <h2 className={style.title}>
+              {original_title}({release_date})
+            </h2>
             <p className={style.movieOverview}>
               <span className={style.span}>Overview</span> {overview}
             </p>

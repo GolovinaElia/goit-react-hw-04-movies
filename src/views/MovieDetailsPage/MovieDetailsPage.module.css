@@ -1,3 +1,10 @@
+.button {
+  display: inline-block;
+  cursor: pointer;
+  margin: 10px;
+  padding: 5px;
+}
+
 .moviePage {
   display: flex;
   margin: 10px;

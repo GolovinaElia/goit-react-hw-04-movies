@@ -22,7 +22,7 @@ class MoviesPage extends Component {
   };
 
   handleChange = event => {
-    this.setState({ query: event.currentTarget.value });
+    this.setState({ query: event.currentTarget.value.trim() });
   };
   render() {
     return (
