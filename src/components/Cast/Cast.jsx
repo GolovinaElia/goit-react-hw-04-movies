@@ -5,8 +5,6 @@ import fetchMovies from '../../services/api';
 class Cast extends Component {
   state = {
     casts: [],
-    profile_path: null,
-    character: null,
   };
 
   componentDidMount() {
