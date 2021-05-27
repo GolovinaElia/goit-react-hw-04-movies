@@ -13,20 +13,22 @@ class Reviews extends Component {
       .getReviews(movieId)
       .then(response => this.setState({ reviews: response.data.results }))
       .catch(error => console.log(error));
-    // this.setState({ reviews: response.data.results });
   }
 
   render() {
     const { reviews } = this.state;
     return (
-      <ul className={style.list}>
-        {reviews.map(reviews => (
-          <li key={reviews.id} className={style.item}>
-            Author: {reviews.author}
-            <p>{reviews.content}</p>
-          </li>
-        ))}
-      </ul>
+      <div className={style.reviews}>
+        <ul className={style.list}>
+          {reviews.map(reviews => (
+            <li className={style.item} key={reviews.id}>
+              <span className={style.span}>Author: {reviews.author}</span>
+
+              <p className={style.content}>{reviews.content}</p>
+            </li>
+          ))}
+        </ul>
+      </div>
     );
   }
 }

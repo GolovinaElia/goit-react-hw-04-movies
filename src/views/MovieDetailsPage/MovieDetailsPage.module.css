@@ -34,3 +34,18 @@
   margin-right: 10px;
   justify-content: start;
 }
+
+.information {
+  padding: 30px;
+  box-shadow: 4px 4px 8px 8px rgba(0, 0, 0, 0.2);
+}
+
+.informationTitle {
+  margin-left: 20px;
+  margin-bottom: 10px;
+}
+
+.informationItem {
+  margin-left: 20px;
+  margin-bottom: 5px;
+}

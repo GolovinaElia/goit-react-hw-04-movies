@@ -32,25 +32,32 @@ class MovieDetailsPage extends Component {
     history.push(location?.state?.from || routes.home);
   };
 
-  // getReleaseDate = result => {
-  //   if (result.release_date !== 'not defined') {
-  //     result.release_date = result.release_date.slice(0, 4);
-  //   }
-  //   return result;
-  // };
+  getMovieDate = results => {
+    const { movieId } = this.props.match.params;
+    fetchMovies
+      .getPageMovie(movieId)
+      .then(response => this.setState({ ...response.data.results }));
+    results.forEach(result => {
+      if (result.release_date !== 'not defined') {
+        result.release_date = result.release_date.slice(0, 4);
+      }
+      return result;
+    });
+  };
 
   render() {
     const {
       original_title,
       poster_path,
-      release_date,
+      // release_date,
       popularity,
       overview,
       genres,
     } = this.state;
     const { match } = this.props;
     const results = 'https://image.tmdb.org/t/p/w500' + poster_path;
-    const moviePopularity = Math.round(popularity);
+    const moviePopularity = Math.round(popularity / 100);
+    const MovieDate = this.getMovieDate();
     return (
       <>
         <button
@@ -67,7 +74,7 @@ class MovieDetailsPage extends Component {
           <img src={results} alt={original_title} />
           <div className={style.movie}>
             <h2 className={style.title}>
-              {original_title}({release_date})
+              {original_title}({MovieDate})
             </h2>
             <p className={style.movieDetails}>User score: {moviePopularity}%</p>
             <p className={style.movieDetails}>
@@ -86,12 +93,12 @@ class MovieDetailsPage extends Component {
           </div>
         </div>
         <div>
-          <ul>
-            <p>Additional information</p>
-            <li>
+          <ul className={style.information}>
+            <p className={style.informationTitle}>Additional information</p>
+            <li className={style.informationItem}>
               <NavLink to={`${match.url}/cast`}>Cast</NavLink>
             </li>
-            <li>
+            <li className={style.informationItem}>
               <NavLink to={`${match.url}/reviews`}>Reviews</NavLink>
             </li>
           </ul>
