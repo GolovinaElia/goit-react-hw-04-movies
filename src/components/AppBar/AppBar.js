@@ -1,5 +1,5 @@
-import style from './AppBar.module.css';
 import Navigation from '../Navigation/Navigation';
+import style from './AppBar.module.css';
 
 const AppBar = () => {
   return (

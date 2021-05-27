@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-// import { Link } from 'react-router-dom';
 import style from './MoviesPage.module.css';
 import MovieList from '../../components/MovieList/MovieList';
 import fetchMovies from '../../services/api';
@@ -45,13 +44,6 @@ class MoviesPage extends Component {
           </form>
         </div>
         <MovieList movies={this.state.movies} />
-        {/* <ul className={style.list}>
-          {this.state.movies.map(movie => (
-            <li key={movie.id} className={style.item}>
-              <Link to={`/movies/${movie.id}`}>{movie.title}</Link>
-            </li>
-          ))}
-        </ul> */}
       </>
     );
   }

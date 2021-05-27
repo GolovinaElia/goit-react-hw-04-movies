@@ -26,7 +26,7 @@ class Api {
   }
   async getCast(movieId) {
     const response = await axios.get(
-      `${BASE_URL}/3/movie/${movieId}/credits?api_key=${KEY_URL}>&language=en-US`,
+      `${BASE_URL}/3/movie/${movieId}/credits?api_key=${KEY_URL}&language=en-US`,
     );
     return response;
   }

@@ -1,6 +1,7 @@
 import { Component } from 'react';
 import fetchMovies from '../../services/api';
-// import style from './Cast.module.css';
+import defaultImage from '../Images/default.png';
+import style from './Cast.module.css';
 
 class Cast extends Component {
   state = {
@@ -11,28 +12,37 @@ class Cast extends Component {
     const { movieId } = this.props.match.params;
     fetchMovies
       .getCast(movieId)
-      .then(response => console.log(response))
+      .then(response => this.setState({ casts: response.data.cast }))
       .catch(error => console.log(error));
-    // this.setState({ casts: response.data.cast })
   }
 
   render() {
-    // const results = 'https://image.tmdb.org/t/p/w500' + this.state.profile_path;
+    const { casts } = this.state;
     return (
-      <h1>CAST</h1>
-      //   <div>
-      //       <ul className={style.list}>
-      //         <span className={style.span}>Casts</span>
-      //         {this.state.casts.map(cast => (
-      //           <li key={cast.id} className={style.item}>
-      //             <img src={results} alt={cast.name} />
-      //             {cast.name}
-      //           </li>
-      //         ))}
-      //       </ul>
-      //       {/* <p>{this.state.character}</p> */}
-      //   </div>
+      <div className={style.casts}>
+        {casts.length > 0 && (
+          <ul className={style.list}>
+            {this.state.casts.map(cast => (
+              <li key={cast.id} className={style.item}>
+                <img
+                  className={style.imgCast}
+                  src={'https://image.tmdb.org/t/p/w500' + cast.profile_path}
+                  alt={cast.name}
+                />
+                <p className={style.nameCast}>{cast.name}</p>
+                <p>Character: {cast.character}</p>
+              </li>
+            ))}
+          </ul>
+        )}
+        {casts.length > 0 && (
+          <h2>We don't have information about actors for this movie</h2>
+        )}
+      </div>
     );
   }
 }
+Cast.defaultProps = {
+  poster_path: defaultImage,
+};
 export default Cast;

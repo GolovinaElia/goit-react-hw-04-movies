@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import style from './HomePage.module.css';
 import MovieList from '../../components/MovieList/MovieList';
 import fetchMovies from '../../services/api';
+import style from './HomePage.module.css';
 
 class HomePage extends Component {
   state = {

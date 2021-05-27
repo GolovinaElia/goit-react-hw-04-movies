@@ -3,9 +3,9 @@ import { NavLink, Route } from 'react-router-dom';
 import Cast from '../../components/Cast/Cast';
 import Reviews from '../../components/Reviews/Reviews';
 import defaultImage from '../../components/Images/default.png';
-import style from './MovieDetailsPage.module.css';
 import routes from '../../routes';
 import fetchMovies from '../../services/api';
+import style from './MovieDetailsPage.module.css';
 
 class MovieDetailsPage extends Component {
   state = {
@@ -14,12 +14,12 @@ class MovieDetailsPage extends Component {
     poster_path: null,
     original_title: null,
     release_date: null,
-    popularity: null,
+    vote_average: null,
     overview: null,
     genres: [],
   };
 
-  async componentDidMount() {
+  componentDidMount() {
     const { movieId } = this.props.match.params;
     fetchMovies
       .getPageMovie(movieId)
@@ -32,32 +32,18 @@ class MovieDetailsPage extends Component {
     history.push(location?.state?.from || routes.home);
   };
 
-  // getMovieDate = results => {
-  //   const { movieId } = this.props.match.params;
-  //   fetchMovies
-  //     .getPageMovie(movieId)
-  //     .then(response => this.setState({ ...response.data.results }));
-  //   results.forEach(result => {
-  //     if (result.release_date !== 'not defined') {
-  //       result.release_date = result.release_date.slice(0, 4);
-  //     }
-  //     return result;
-  //   });
-  // };
-
   render() {
     const {
       original_title,
       poster_path,
+      vote_average,
       release_date,
-      popularity,
       overview,
       genres,
     } = this.state;
     const { match } = this.props;
     const results = 'https://image.tmdb.org/t/p/w500' + poster_path;
-    const moviePopularity = Math.round(popularity / 100);
-    // const MovieDate = this.getMovieDate();
+    const moviePopularity = vote_average * 10;
     return (
       <>
         <button

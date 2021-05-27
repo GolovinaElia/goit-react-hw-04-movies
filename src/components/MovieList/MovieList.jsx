@@ -1,5 +1,6 @@
-import style from './MovieList.module.css';
 import { Link, withRouter } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import style from './MovieList.module.css';
 
 const MovieList = ({ movies, location }) => (
   <ul className={style.list}>
@@ -18,5 +19,9 @@ const MovieList = ({ movies, location }) => (
     ))}
   </ul>
 );
+MovieList.propTypes = {
+  movies: PropTypes.array.isRequired,
+  location: PropTypes.object.isRequired,
+};
 
 export default withRouter(MovieList);
