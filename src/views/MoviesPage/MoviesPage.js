@@ -16,10 +16,14 @@ class MoviesPage extends Component {
       .then(response => response.data.results)
       .then(results => this.setState({ movies: results }))
       .catch(error => console.log(error));
+
+    this.props.history.push({
+      search: `query=${this.state.query}`,
+    });
   };
 
   handleChange = event => {
-    this.setState({ query: event.currentTarget.value.trim() });
+    this.setState({ query: event.currentTarget.value });
   };
   render() {
     return (
