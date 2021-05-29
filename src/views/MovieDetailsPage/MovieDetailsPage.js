@@ -45,6 +45,7 @@ class MovieDetailsPage extends Component {
     const { match } = this.props;
     const results = 'https://image.tmdb.org/t/p/w500' + poster_path;
     const moviePopularity = vote_average * 10;
+    const date = new Date(release_date);
     return (
       <>
         <button
@@ -61,7 +62,7 @@ class MovieDetailsPage extends Component {
           <img src={results} alt={original_title} />
           <div className={style.movie}>
             <h2 className={style.title}>
-              {original_title}({release_date})
+              {original_title}({date.getFullYear()})
             </h2>
             <p className={style.movieDetails}>User score: {moviePopularity}%</p>
             <p className={style.movieDetails}>
