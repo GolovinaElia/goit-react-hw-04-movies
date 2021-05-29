@@ -41,6 +41,7 @@ class MovieDetailsPage extends Component {
       overview,
       genres,
     } = this.state;
+    const { location } = this.props;
     const { match } = this.props;
     const results = 'https://image.tmdb.org/t/p/w500' + poster_path;
     const moviePopularity = vote_average * 10;
@@ -82,10 +83,24 @@ class MovieDetailsPage extends Component {
           <ul className={style.information}>
             <p className={style.informationTitle}>Additional information</p>
             <li className={style.informationItem}>
-              <NavLink to={`${match.url}/cast`}>Cast</NavLink>
+              <NavLink
+                to={{
+                  pathname: `${match.url}/cast`,
+                  state: { from: location.state.from },
+                }}
+              >
+                Cast
+              </NavLink>
             </li>
             <li className={style.informationItem}>
-              <NavLink to={`${match.url}/reviews`}>Reviews</NavLink>
+              <NavLink
+                to={{
+                  pathname: `${match.url}/cast`,
+                  state: { from: location.state.from },
+                }}
+              >
+                Reviews
+              </NavLink>
             </li>
           </ul>
         </div>

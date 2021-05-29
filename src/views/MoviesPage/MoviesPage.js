@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import style from './MoviesPage.module.css';
 import MovieList from '../../components/MovieList/MovieList';
 import fetchMovies from '../../services/api';
+import queryString from 'query-string';
 
 class MoviesPage extends Component {
   state = {
@@ -9,13 +10,33 @@ class MoviesPage extends Component {
     query: '',
   };
 
-  handleSubmit = event => {
-    event.preventDefault();
+  getQueryFromProps = props => queryString.parse(props.location.search).query;
+
+  componentDidMount() {
+    const query = this.getQueryFromProps(this.props);
+    if (query) {
+      this.getMovies(query);
+    }
+  }
+
+  componentDidUpdate(prevProps) {
+    const prevQuery = this.getQueryFromProps(prevProps);
+    const nextQuery = this.getQueryFromProps(this.props);
+    if (prevQuery !== nextQuery) {
+      this.getMovies(nextQuery);
+    }
+  }
+
+  getMovies = query => {
     fetchMovies
-      .getSearchMovie(this.state.query)
+      .getSearchMovie(query)
       .then(response => response.data.results)
       .then(results => this.setState({ movies: results }))
       .catch(error => console.log(error));
+  };
+
+  handleSubmit = event => {
+    event.preventDefault();
 
     this.props.history.push({
       search: `query=${this.state.query}`,
@@ -25,7 +46,9 @@ class MoviesPage extends Component {
   handleChange = event => {
     this.setState({ query: event.currentTarget.value });
   };
+
   render() {
+    const { movies } = this.state;
     return (
       <>
         <div className={style.page}>
@@ -47,7 +70,7 @@ class MoviesPage extends Component {
             </button>
           </form>
         </div>
-        <MovieList movies={this.state.movies} />
+        <MovieList movies={movies} />
       </>
     );
   }

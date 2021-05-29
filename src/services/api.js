@@ -11,9 +11,9 @@ class Api {
     return response;
   }
 
-  async getSearchMovie(query) {
+  async getSearchMovie(searchQuery) {
     const response = await axios.get(
-      `${BASE_URL}/3/search/movie?api_key=${KEY_URL}&page=1&query=${query}&include_adult=false&language=en`,
+      `${BASE_URL}/3/search/movie?api_key=${KEY_URL}&page=1&query=${searchQuery}&include_adult=false&language=en`,
     );
     return response;
   }
